@@ -4,6 +4,8 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Value;
 
+import jakarta.json.Json;
+import jakarta.json.JsonObject;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
@@ -98,4 +100,14 @@ public class Order {
         return sb.toString().substring(0, numOfChar);
     }
 
+    public JsonObject toJSON() {
+        return Json.createObjectBuilder()
+                .add("orderId", this.getOrderId())
+                .add("name", this.getName())
+                .add("address", this.getAddress())
+                .add("phone", this.getPhone())
+                .add("rush", this.getIsRush())
+                .add("comments", this.getComments())
+                .build();
+    }
 }

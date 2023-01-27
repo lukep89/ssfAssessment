@@ -6,15 +6,12 @@ import org.springframework.stereotype.Service;
 
 import ibf2022.ssfAssessment.model.Order;
 import ibf2022.ssfAssessment.model.Select;
-import jakarta.validation.Valid;
 
 @Service
 public class PizzaService {
 
     private static final String DETAILS = "details";
     // private int count = 0;
-
-    
 
     @Autowired
     RedisTemplate<String, Object> redisTemplate;
@@ -31,8 +28,12 @@ public class PizzaService {
     // get 1st index of List then push order details
     public void saveOrder(final Order order) {
         redisTemplate.opsForList().leftPush(DETAILS, order);
+
+        // change the DETAILS with orderId
     }
 
-   
+    public Order findById(String id) {
+        return null;
+    }
 
 }

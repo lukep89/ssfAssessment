@@ -23,7 +23,7 @@ public class PizzaController {
     @Autowired
     private PizzaService pizzaSvr;
 
-    private Double total;
+    private Double total = 0.0;
 
     @GetMapping(path = "/")
     public String showView0(Model model) {
@@ -36,7 +36,7 @@ public class PizzaController {
     public String savePizza(@Valid Select select, Model model) {
 
         // over here you get another id
-        System.out.println("id at controller, post >>> " + select.getId());
+
         System.out.println("pizza at controller, post >>> " + select.getPizza());
         System.out.println("size at controller, post >>> " + select.getSize());
         System.out.println("qty at controller, post >>> " + select.getQuantity());

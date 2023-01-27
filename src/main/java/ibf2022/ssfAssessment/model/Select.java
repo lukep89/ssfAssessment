@@ -18,18 +18,14 @@ public class Select {
     // @Max(value = 10, message = "Must be below 10 pizza")
     private Integer quantity;
 
-    private String id;
-
     public Select() {
-        this.id = genrateId(8);
-        System.out.println("id at model >>>> " + this.id);
     }
 
-    public Select(String pizza, String size, Integer quantity, String id) {
+    public Select(String pizza, String size, Integer quantity) {
         this.pizza = pizza;
         this.size = size;
         this.quantity = quantity;
-        this.id = id;
+
     }
 
     public String getPizza() {
@@ -54,25 +50,6 @@ public class Select {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    private synchronized String genrateId(int numOfChar) {
-        Random rnd = new Random();
-        StringBuilder sb = new StringBuilder();
-
-        while (sb.length() < numOfChar) {
-            sb.append(Integer.toHexString(rnd.nextInt()));
-
-        }
-        return sb.toString().substring(0, numOfChar);
     }
 
     public JsonObject toJSON() {
