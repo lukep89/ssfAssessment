@@ -2,11 +2,10 @@ package ibf2022.ssfAssessment.model;
 
 import java.util.Random;
 
-
 import jakarta.json.Json;
 import jakarta.json.JsonObject;
 
-public class Pizza {
+public class Select {
 
     // @NotNull(message = "Name cannot be null")
     private String pizza;
@@ -21,12 +20,12 @@ public class Pizza {
 
     private String id;
 
-    public Pizza() {
+    public Select() {
         this.id = genrateId(8);
         System.out.println("id at model >>>> " + this.id);
     }
 
-    public Pizza(String pizza, String size, Integer quantity, String id) {
+    public Select(String pizza, String size, Integer quantity, String id) {
         this.pizza = pizza;
         this.size = size;
         this.quantity = quantity;

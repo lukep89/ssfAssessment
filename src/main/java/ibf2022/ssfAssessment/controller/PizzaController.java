@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import ibf2022.ssfAssessment.model.Order;
-import ibf2022.ssfAssessment.model.Pizza;
+import ibf2022.ssfAssessment.model.Select;
 import ibf2022.ssfAssessment.service.PizzaService;
 import jakarta.validation.Valid;
 
@@ -23,25 +23,66 @@ public class PizzaController {
     @Autowired
     private PizzaService pizzaSvr;
 
+    private Double total;
+
     @GetMapping(path = "/")
     public String showView0(Model model) {
-        model.addAttribute("pizza", new Pizza());
+        model.addAttribute("pizza", new Select());
         // over here you get id
         return "index";
     }
 
-    @PostMapping(path = "/pizza", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String savePizza(@Valid Pizza pizza, Model model) {
+    @PostMapping(path = "pizza")
+    public String savePizza(@Valid Select select, Model model) {
 
         // over here you get another id
-        System.out.println("id at controller, post >>> " + pizza.getId());
-        System.out.println("pizza at controller, post >>> " + pizza.getPizza());
-        System.out.println("size at controller, post >>> " + pizza.getSize());
-        System.out.println("qty at controller, post >>> " + pizza.getQuantity());
+        System.out.println("id at controller, post >>> " + select.getId());
+        System.out.println("pizza at controller, post >>> " + select.getPizza());
+        System.out.println("size at controller, post >>> " + select.getSize());
+        System.out.println("qty at controller, post >>> " + select.getQuantity());
 
-        pizzaSvr.savePizza(pizza);
+        String pizza = select.getPizza();
+        switch (pizza) {
+            case "bella", "marinara", "spianatacalabrese":
+                total += 30;
+                break;
 
-        model.addAttribute("pizza", pizza);
+            case "margherita":
+                total += 22;
+                break;
+
+            case "trioformaggio":
+                total += 25;
+                break;
+
+            default:
+                break;
+        }
+
+        String size = select.getSize();
+        switch (size) {
+            case "sm":
+                total *= 1;
+                break;
+
+            case "md":
+                total *= 1.2;
+                break;
+
+            case "lg":
+                total *= 1.5;
+                break;
+
+            default:
+                break;
+        }
+
+        Integer qty = select.getQuantity();
+        total *= qty;
+
+        pizzaSvr.savePizza(select);
+
+        model.addAttribute("pizza", select);
 
         return "view1";
     }
@@ -52,9 +93,14 @@ public class PizzaController {
         if (binding.hasErrors()) {
             return "view1";
         }
-        
+
         pizzaSvr.saveOrder(order);
 
+        if (order.getIsRush()) {
+            total += 2;
+        }
+
+        model.addAttribute("order", order);
         return "null"; // return "view2"
     }
 

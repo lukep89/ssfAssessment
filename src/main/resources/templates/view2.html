@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Confimation</title>
+  </head>
+  <body>
+    <h1>Delivery Details</h1>
+    <br />
+    Order Number: <a href="/order + *{orderId}"><span></span></a>
+    <br />
+    Your order will be deilvered to: <span></span>
+    <br />
+    Pizza cost: <span></span>
+    <br />
+    Rush: <span data-th-if="*{isRush}">$2</span>
+    <br />
+    Pizza cost: <span></span>
+    <br />
+  </body>
+</html>
