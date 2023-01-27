@@ -20,19 +20,17 @@ public class RestPizzaController {
     @Autowired
     private PizzaService pizzaSvr;
 
+    @GetMapping(value = "/order/{orderId}")
+    public ResponseEntity<String> getBoardgame(@PathVariable String orderId) throws IOException {
+        Order result = pizzaSvr.findById(orderId);
 
-    @GetMapping(value = "{id}")
-    public ResponseEntity<String> getBoardgame(@PathVariable String id) throws
-    IOException {
-    Order result = pizzaSvr.findById(id);
-
-    if (result == null) {
-    return ResponseEntity.status(HttpStatus.NOT_FOUND)
-    .contentType(MediaType.APPLICATION_JSON)
-    .body("");
-    }
-    return ResponseEntity.status(HttpStatus.OK)
-    .contentType(MediaType.APPLICATION_JSON)
-    .body(result.toJSON().toString());
+        if (result == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .body("");
+        }
+        return ResponseEntity.status(HttpStatus.OK)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(result.toJSON().toString());
     }
 }
